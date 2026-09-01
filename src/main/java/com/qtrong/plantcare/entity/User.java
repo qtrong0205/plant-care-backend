@@ -15,12 +15,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String userId;
+    @Column(unique = true, nullable = false)
     @Email
-    @UniqueElements
     private String email;
     private String password;
     private String name;
     private Date created_at;
+
+    public String getId() {return userId;}
 
     public String getEmail() {
         return email;

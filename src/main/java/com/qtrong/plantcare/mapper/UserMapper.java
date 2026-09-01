@@ -1,10 +1,13 @@
 package com.qtrong.plantcare.mapper;
 
 import com.qtrong.plantcare.dto.request.UserCreationRequest;
+import com.qtrong.plantcare.dto.response.UserResponse;
 import com.qtrong.plantcare.entity.User;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class UserMapper {
     public User toUser(UserCreationRequest request){
         var user = new User();

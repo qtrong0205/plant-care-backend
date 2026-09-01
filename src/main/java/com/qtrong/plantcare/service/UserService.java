@@ -3,6 +3,8 @@ package com.qtrong.plantcare.service;
 import com.qtrong.plantcare.dto.request.UserCreationRequest;
 import com.qtrong.plantcare.dto.response.UserResponse;
 import com.qtrong.plantcare.entity.User;
+import com.qtrong.plantcare.exception.AppException;
+import com.qtrong.plantcare.exception.ErrorCode;
 import com.qtrong.plantcare.mapper.UserMapper;
 import com.qtrong.plantcare.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,21 +18,17 @@ public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
 
-    public boolean register(
+    public User register(
             UserCreationRequest request
     ){
         if(userRepository.existsByEmail(request.getEmail())){
-            return false;
+            throw new AppException(ErrorCode.USER_EXISTED);
         }
-
         User user = userMapper.toUser(request);
-
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         userRepository.save(user);
 
-        return true;
+        return user;
     }
 }
