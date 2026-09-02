@@ -9,10 +9,8 @@ import com.qtrong.plantcare.dto.response.AuthenticationResponse;
 import com.qtrong.plantcare.exception.AppException;
 import com.qtrong.plantcare.exception.ErrorCode;
 import com.qtrong.plantcare.repository.UserRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +22,8 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository userRepository;
-    @Value("${spring.signer-key}")
-    protected String SIGNER_KEY;
+    private final PasswordEncoder passwordEncoder;
+    private final String signerKey;
 
     public ApiResponse<AuthenticationResponse> authenticate(AuthenticationRequest request){
         if(!userRepository.existsByEmail(request.getEmail())){
@@ -33,8 +31,6 @@ public class AuthenticationService {
         }
 
         var user = userRepository.findByEmail(request.getEmail());
-
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
         boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
@@ -68,7 +64,7 @@ public class AuthenticationService {
         JWSObject jwsObject = new JWSObject(jwsHeader, payload);
 
         try {
-            jwsObject.sign(new MACSigner(SIGNER_KEY));
+            jwsObject.sign(new MACSigner(signerKey));
             return jwsObject.serialize();
         }
         catch (JOSEException e){

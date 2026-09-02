@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public User register(
             UserCreationRequest request
@@ -25,7 +26,6 @@ public class UserService {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
         User user = userMapper.toUser(request);
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
