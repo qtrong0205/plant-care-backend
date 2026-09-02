@@ -3,6 +3,7 @@ package com.qtrong.plantcare.controller;
 import com.qtrong.plantcare.dto.request.UserCreationRequest;
 import com.qtrong.plantcare.entity.User;
 import com.qtrong.plantcare.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class UserController {
 
     @PostMapping("/register")
     public User register(
-            @RequestBody UserCreationRequest request
+            @Valid @RequestBody UserCreationRequest request
             ){
         return userService.register(request);
     }

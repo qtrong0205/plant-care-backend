@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = RuntimeException.class)
-    ResponseEntity<ApiResponse<?>> handlingRuntimeException(RuntimeException exception) {
+    @ExceptionHandler(value = Exception.class)
+    ResponseEntity<ApiResponse<?>> handlingRuntimeException(Exception exception) {
         ApiResponse<?> apiResponse = new ApiResponse<>();
-        apiResponse.setCode(1000);
-        apiResponse.setMessage(exception.getMessage());
+        apiResponse.setCode(ErrorCode.UNCATEGORIZED_ERROR.getCode());
+        apiResponse.setMessage(ErrorCode.UNCATEGORIZED_ERROR.getMessage());
         return ResponseEntity
                 .status(apiResponse.getCode())
                 .body(apiResponse);
@@ -33,10 +33,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    ResponseEntity<ApiResponse<?>> handlingValidation(RuntimeException exception) {
+    ResponseEntity<ApiResponse<?>> handlingValidation(MethodArgumentNotValidException exception) {
+        String enumKey = exception.getFieldError().getDefaultMessage();
+        ErrorCode errorCode = ErrorCode.valueOf(enumKey);
+
         ApiResponse<?> apiResponse = new ApiResponse<>();
-        apiResponse.setCode(1000);
-        apiResponse.setMessage(exception.getMessage());
+        apiResponse.setCode(errorCode.getCode());
+        apiResponse.setMessage(errorCode.getMessage());
+
         return ResponseEntity
                 .status(apiResponse.getCode())
                 .body(apiResponse);
