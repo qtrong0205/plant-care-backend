@@ -1,10 +1,7 @@
 package com.qtrong.plantcare.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -12,9 +9,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
+@Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse {
-    private String id;
     private String email;
     private String password;
     private String name;

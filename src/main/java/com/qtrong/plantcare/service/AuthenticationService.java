@@ -38,7 +38,7 @@ public class AuthenticationService {
             throw new AppException(ErrorCode.INVALID_CREDENTIALS);
         }
 
-        var token = generateToken(user.getEmail());
+        var token = generateToken(user.getEmail(), user.getId());
 
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(AuthenticationResponse.builder()
@@ -48,13 +48,14 @@ public class AuthenticationService {
                 .build();
     }
 
-    String generateToken(String email){
+    String generateToken(String email, String userId){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .issuer("qtrong.plantcare")
-                .subject(email)
+                .subject(userId)
                 .issueTime(new Date())
+                .claim("email", email)
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))

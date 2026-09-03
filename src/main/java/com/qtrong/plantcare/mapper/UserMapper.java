@@ -17,4 +17,12 @@ public class UserMapper {
         user.setCreated_at(new Date());
         return user;
     }
+
+    public UserResponse toUserResponse(User user){
+        var userResponse = new UserResponse();
+        userResponse.setEmail(user.getEmail());
+        userResponse.setName(user.getName());
+        userResponse.setCreated_at(user.getCreated_at());
+        return userResponse;
+    }
 }
