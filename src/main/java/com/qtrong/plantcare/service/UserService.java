@@ -39,10 +39,7 @@ public class UserService {
     }
 
     public ApiResponse<UserResponse> getUserProfile(Jwt jwt) {
-        String userId = jwtService.extractUserId(jwt);
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        User user = jwtService.extractUser(jwt);
 
         return ApiResponse.<UserResponse>builder()
                 .code(200)
