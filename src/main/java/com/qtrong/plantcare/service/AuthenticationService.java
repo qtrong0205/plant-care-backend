@@ -38,7 +38,7 @@ public class AuthenticationService {
             throw new AppException(ErrorCode.INVALID_CREDENTIALS);
         }
 
-        var token = generateToken(user.getEmail(), user.getId());
+        var token = generateToken(user.getEmail(), user.getUserId());
 
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(AuthenticationResponse.builder()

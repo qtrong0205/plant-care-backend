@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class JwtService {
-    private final NimbusJwtDecoder jwtDecoder;
     private final UserRepository userRepository;
 
     public String extractUserId(Jwt jwt){
@@ -23,6 +22,6 @@ public class JwtService {
         String userId = extractUserId(jwt);
 
         return userRepository.findById(userId)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));;
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
     }
 }
