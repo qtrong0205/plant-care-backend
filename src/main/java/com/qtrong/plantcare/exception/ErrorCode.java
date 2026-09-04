@@ -11,7 +11,8 @@ public enum ErrorCode {
     INVALID_EMAIL(400, "Invalid email format"),
     INVALID_PASSWORD(400, "Password must be at least 6 characters or at most 20 characters"),
     USER_NOT_EXISTED(400, "User not exist"),
-    INVALID_CREDENTIALS(401, "Invalid username or password")
+    INVALID_CREDENTIALS(401, "Invalid username or password"),
+    PLANT_NOT_EXISTED(400, "Plant not existed")
     ;
 
     private int code;

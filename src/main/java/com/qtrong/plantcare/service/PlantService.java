@@ -4,6 +4,8 @@ import com.qtrong.plantcare.dto.request.PlantCreationRequest;
 import com.qtrong.plantcare.dto.response.ApiResponse;
 import com.qtrong.plantcare.dto.response.PlantResponse;
 import com.qtrong.plantcare.entity.Plant;
+import com.qtrong.plantcare.exception.AppException;
+import com.qtrong.plantcare.exception.ErrorCode;
 import com.qtrong.plantcare.mapper.PlantMapper;
 import com.qtrong.plantcare.repository.PlantRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +38,23 @@ public class PlantService {
 
         return ApiResponse.<PlantResponse>builder()
                 .code(201)
+                .result(plantMapper.toPlantResponse(plant))
+                .build();
+    }
+
+    public ApiResponse<PlantResponse> getPlant(
+            String plantId,
+            Jwt jwt
+    ) {
+        var user = jwtService.extractUser(jwt);
+
+        var plant = plantRepository.findByPlantIdAndUser(plantId, user)
+                .orElseThrow(() ->
+                        new AppException(ErrorCode.PLANT_NOT_EXISTED)
+                );
+
+        return ApiResponse.<PlantResponse>builder()
+                .code(200)
                 .result(plantMapper.toPlantResponse(plant))
                 .build();
     }
