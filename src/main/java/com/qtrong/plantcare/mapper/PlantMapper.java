@@ -1,12 +1,17 @@
 package com.qtrong.plantcare.mapper;
 
 import com.qtrong.plantcare.dto.request.PlantCreationRequest;
+import com.qtrong.plantcare.dto.response.PlantResponse;
 import com.qtrong.plantcare.entity.Plant;
 import com.qtrong.plantcare.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class PlantMapper {
+    private final UserMapper userMapper;
+
     public Plant toPlant(PlantCreationRequest request, User user, String imageUrl){
         var plant = new Plant();
         plant.setName(request.getName());
@@ -18,5 +23,17 @@ public class PlantMapper {
         plant.setUser(user);
         plant.setImageUrl(imageUrl);
         return plant;
+    }
+
+    public PlantResponse toPlantResponse(Plant plant){
+        var plantResponse = new PlantResponse();
+        plantResponse.setName(plant.getName());
+        plantResponse.setSpecies(plant.getSpecies());
+        plantResponse.setPlantedAt(plant.getPlantedAt());
+        plantResponse.setCreatedAt(plant.getCreatedAt());
+        plantResponse.setLastWateredAt(plant.getLastWateredAt());
+        plantResponse.setWateringIntervalDays(plant.getWateringIntervalDays());
+        plantResponse.setImageUrl(plant.getImageUrl());
+        return plantResponse;
     }
 }

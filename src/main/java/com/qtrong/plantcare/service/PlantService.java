@@ -1,6 +1,8 @@
 package com.qtrong.plantcare.service;
 
 import com.qtrong.plantcare.dto.request.PlantCreationRequest;
+import com.qtrong.plantcare.dto.response.ApiResponse;
+import com.qtrong.plantcare.dto.response.PlantResponse;
 import com.qtrong.plantcare.entity.Plant;
 import com.qtrong.plantcare.mapper.PlantMapper;
 import com.qtrong.plantcare.repository.PlantRepository;
@@ -20,7 +22,7 @@ public class PlantService {
     private final PlantMapper plantMapper;
     private final JwtService jwtService;
 
-    public Plant createPlant(
+    public ApiResponse<PlantResponse> createPlant(
             PlantCreationRequest request,
             MultipartFile image,
             Jwt jwt
@@ -30,7 +32,11 @@ public class PlantService {
         var user = jwtService.extractUser(jwt);
 
         var plant = plantMapper.toPlant(request, user, imageUrl);
+        plantRepository.save(plant);
 
-        return plantRepository.save(plant);
+        return ApiResponse.<PlantResponse>builder()
+                .code(201)
+                .result(plantMapper.toPlantResponse(plant))
+                .build();
     }
 }

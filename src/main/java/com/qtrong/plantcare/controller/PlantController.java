@@ -1,6 +1,8 @@
 package com.qtrong.plantcare.controller;
 
 import com.qtrong.plantcare.dto.request.PlantCreationRequest;
+import com.qtrong.plantcare.dto.response.ApiResponse;
+import com.qtrong.plantcare.dto.response.PlantResponse;
 import com.qtrong.plantcare.entity.Plant;
 import com.qtrong.plantcare.service.PlantService;
 import jakarta.validation.Valid;
@@ -22,7 +24,7 @@ public class PlantController {
     private final PlantService plantService;
 
     @PostMapping
-    public Plant createPlant(
+    public ApiResponse<PlantResponse> createPlant(
             @Valid @RequestPart("plant") PlantCreationRequest request,
             @RequestPart("image") MultipartFile image,
             @AuthenticationPrincipal Jwt jwt
