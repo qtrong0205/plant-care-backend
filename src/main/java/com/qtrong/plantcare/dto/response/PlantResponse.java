@@ -1,7 +1,7 @@
 package com.qtrong.plantcare.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.qtrong.plantcare.entity.PlantType;
+import com.qtrong.plantcare.enums.PlantType;
 import lombok.*;
 
 import java.util.Date;

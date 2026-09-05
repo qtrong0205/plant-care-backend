@@ -1,6 +1,6 @@
 package com.qtrong.plantcare.dto.request;
 
-import com.qtrong.plantcare.entity.PlantType;
+import com.qtrong.plantcare.enums.PlantType;
 import lombok.Getter;
 
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.qtrong.plantcare.entity;
+package com.qtrong.plantcare.enums;
 
 public enum PlantType {
     APPLE,

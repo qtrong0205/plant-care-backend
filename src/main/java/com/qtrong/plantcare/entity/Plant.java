@@ -1,6 +1,7 @@
 package com.qtrong.plantcare.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.qtrong.plantcare.enums.PlantType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
