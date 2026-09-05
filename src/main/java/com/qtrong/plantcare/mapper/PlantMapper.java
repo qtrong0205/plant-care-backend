@@ -27,8 +27,11 @@ public class PlantMapper {
 
     public PlantResponse toPlantResponse(Plant plant){
         var plantResponse = new PlantResponse();
+        plantResponse.setPlantId(plant.getPlantId());
         plantResponse.setName(plant.getName());
         plantResponse.setSpecies(plant.getSpecies());
+        plantResponse.setStatus(plant.getStatus());
+        plantResponse.setDisease(plant.getDisease());
         plantResponse.setPlantedAt(plant.getPlantedAt());
         plantResponse.setCreatedAt(plant.getCreatedAt());
         plantResponse.setLastWateredAt(plant.getLastWateredAt());

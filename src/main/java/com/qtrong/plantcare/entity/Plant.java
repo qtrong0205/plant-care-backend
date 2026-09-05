@@ -1,6 +1,8 @@
 package com.qtrong.plantcare.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.qtrong.plantcare.enums.PlantDisease;
+import com.qtrong.plantcare.enums.PlantStatus;
 import com.qtrong.plantcare.enums.PlantType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -21,6 +23,10 @@ public class Plant {
     private String name;
     @Enumerated(EnumType.STRING)
     private PlantType species;
+    @Enumerated(EnumType.STRING)
+    private PlantStatus status = PlantStatus.HEALTHY;
+    @Enumerated(EnumType.STRING)
+    private PlantDisease disease = null;
     @Column(name = "image_url")
     private String imageUrl;
     @Column(name = "planted_at")
