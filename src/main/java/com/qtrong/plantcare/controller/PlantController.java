@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,7 +34,14 @@ public class PlantController {
     public ApiResponse<PlantResponse> getPlant(
             @PathVariable("plant-id") String plantId,
             @AuthenticationPrincipal Jwt jwt
-    ) throws IOException {
+    ){
         return plantService.getPlant(plantId, jwt);
+    }
+
+    @GetMapping
+    public ApiResponse<List<PlantResponse>> getAllPlants(
+            @AuthenticationPrincipal Jwt jwt
+    ){
+        return plantService.getAllPlants(jwt);
     }
 }

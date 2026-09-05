@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,6 +57,21 @@ public class PlantService {
         return ApiResponse.<PlantResponse>builder()
                 .code(200)
                 .result(plantMapper.toPlantResponse(plant))
+                .build();
+    }
+
+    public ApiResponse<List<PlantResponse>> getAllPlants(Jwt jwt) {
+        var userId = jwtService.extractUserId(jwt);
+
+        var plants = plantRepository.findAllByUser_UserId(userId);
+
+        var result = plants.stream()
+                .map(plantMapper::toPlantResponse)
+                .toList();
+
+        return ApiResponse.<List<PlantResponse>>builder()
+                .code(200)
+                .result(result)
                 .build();
     }
 }
