@@ -44,4 +44,12 @@ public class PlantController {
     ){
         return plantService.getAllPlants(jwt);
     }
+
+    @PostMapping("/{plant-id}/watering")
+    public ApiResponse<?> watering(
+            @PathVariable("plant-id") String plantId,
+            @AuthenticationPrincipal Jwt jwt
+    ){
+        return plantService.watering(plantId, jwt);
+    }
 }

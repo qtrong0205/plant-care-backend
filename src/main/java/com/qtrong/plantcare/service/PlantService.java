@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -72,6 +73,23 @@ public class PlantService {
         return ApiResponse.<List<PlantResponse>>builder()
                 .code(200)
                 .result(result)
+                .build();
+    }
+
+    public ApiResponse<Void> watering(String plantId, Jwt jwt) {
+        var user = jwtService.extractUser(jwt);
+
+        var plant = plantRepository.findByPlantIdAndUser(plantId, user)
+                .orElseThrow(() ->
+                        new AppException(ErrorCode.PLANT_NOT_EXISTED)
+                );
+
+        plant.setLastWateredAt(new Date());
+        plantRepository.save(plant);
+
+        return ApiResponse.<Void>builder()
+                .code(200)
+                .message("Watered successfully")
                 .build();
     }
 }
