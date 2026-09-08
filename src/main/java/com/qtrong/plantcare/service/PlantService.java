@@ -1,6 +1,7 @@
 package com.qtrong.plantcare.service;
 
 import com.qtrong.plantcare.dto.request.PlantCreationRequest;
+import com.qtrong.plantcare.dto.request.PlantUpdateRequest;
 import com.qtrong.plantcare.dto.response.ApiResponse;
 import com.qtrong.plantcare.dto.response.PlantResponse;
 import com.qtrong.plantcare.entity.Plant;
@@ -106,6 +107,28 @@ public class PlantService {
         return ApiResponse.<Void>builder()
                 .code(200)
                 .message("Plant deleted successfully")
+                .build();
+    }
+
+    public ApiResponse<PlantResponse> update(
+            String plantId,
+            PlantUpdateRequest request,
+            Jwt jwt
+    ){
+        var user = jwtService.extractUser(jwt);
+
+        var plant = plantRepository.findByPlantIdAndUser(plantId, user)
+                .orElseThrow(() ->
+                        new AppException(ErrorCode.PLANT_NOT_EXISTED)
+                );
+
+        plantMapper.updatePlant(plant, request);
+
+        plantRepository.save(plant);
+
+        return ApiResponse.<PlantResponse>builder()
+                .code(200)
+                .result(plantMapper.toPlantResponse(plant))
                 .build();
     }
 }

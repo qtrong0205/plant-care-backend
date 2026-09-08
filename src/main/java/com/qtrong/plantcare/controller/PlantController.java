@@ -1,6 +1,7 @@
 package com.qtrong.plantcare.controller;
 
 import com.qtrong.plantcare.dto.request.PlantCreationRequest;
+import com.qtrong.plantcare.dto.request.PlantUpdateRequest;
 import com.qtrong.plantcare.dto.response.ApiResponse;
 import com.qtrong.plantcare.dto.response.PlantResponse;
 import com.qtrong.plantcare.entity.Plant;
@@ -59,5 +60,14 @@ public class PlantController {
             @AuthenticationPrincipal Jwt jwt
     ){
         return plantService.delete(plantId, jwt);
+    }
+
+    @PatchMapping("/{plant-id}")
+    public ApiResponse<PlantResponse> update(
+            @PathVariable("plant-id") String plantId,
+            @RequestBody PlantUpdateRequest request,
+            @AuthenticationPrincipal Jwt jwt
+    ){
+        return plantService.update(plantId, request, jwt);
     }
 }
