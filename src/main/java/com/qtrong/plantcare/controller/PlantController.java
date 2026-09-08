@@ -52,4 +52,12 @@ public class PlantController {
     ){
         return plantService.watering(plantId, jwt);
     }
+
+    @DeleteMapping("/{plant-id}")
+    public ApiResponse<?> delete(
+            @PathVariable("plant-id") String plantId,
+            @AuthenticationPrincipal Jwt jwt
+    ){
+        return plantService.delete(plantId, jwt);
+    }
 }

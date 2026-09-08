@@ -92,4 +92,20 @@ public class PlantService {
                 .message("Watered successfully")
                 .build();
     }
+
+    public ApiResponse<Void> delete(String plantId, Jwt jwt) {
+        var user = jwtService.extractUser(jwt);
+
+        var plant = plantRepository.findByPlantIdAndUser(plantId, user)
+                .orElseThrow(() ->
+                        new AppException(ErrorCode.PLANT_NOT_EXISTED)
+                );
+
+        plantRepository.delete(plant);
+
+        return ApiResponse.<Void>builder()
+                .code(200)
+                .message("Plant deleted successfully")
+                .build();
+    }
 }
