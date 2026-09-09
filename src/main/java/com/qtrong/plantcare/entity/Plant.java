@@ -1,6 +1,7 @@
 package com.qtrong.plantcare.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.qtrong.plantcare.enums.PlantDisease;
 import com.qtrong.plantcare.enums.PlantStatus;
 import com.qtrong.plantcare.enums.PlantType;
@@ -10,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -44,4 +46,9 @@ public class Plant {
     )
     @JsonBackReference
     private User user;
+
+    @OneToMany(mappedBy = "plant", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    @OrderBy("createAt DESC")
+    private List<History> histories;
 }

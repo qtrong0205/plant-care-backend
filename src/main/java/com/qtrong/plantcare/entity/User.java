@@ -31,4 +31,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
     private List<Plant> plants;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    @OrderBy("createAt DESC")
+    private List<History> histories;
 }
