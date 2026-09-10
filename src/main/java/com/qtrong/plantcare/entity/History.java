@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.type.SqlTypes;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,7 +30,7 @@ public class History {
     private Float confidence;
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "top_k_results", columnDefinition = "json")
-    private TopKAiResults topKAiResults;
+    private List<TopKAiResults> topKAiResults;
     @Enumerated(EnumType.STRING)
     private AiPredictionStatus status;
     private Date createAt;

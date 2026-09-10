@@ -4,11 +4,13 @@ import com.qtrong.plantcare.enums.AiPredictionStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class AiPredictionResult {
     private String predictedLabel;
     private Float confidence;
-    private TopKAiResults topKAiResults;
+    private List<TopKAiResults> topKAiResults;
     private AiPredictionStatus status;
 }
