@@ -40,7 +40,7 @@ public class History {
     private Plant plant;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
     private User user;
 }
