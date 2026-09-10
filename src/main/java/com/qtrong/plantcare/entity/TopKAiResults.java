@@ -9,12 +9,6 @@ import java.util.List;
 @Setter
 public class TopKAiResults {
 
-    private List<Result> results;
-
-    @Getter
-    @Setter
-    public static class Result {
-        private String label;
-        private Float confidence;
-    }
+    private String label;
+    private Float confidence;
 }

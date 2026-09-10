@@ -1,11 +1,12 @@
 package com.qtrong.plantcare.controller;
 
 
+import com.qtrong.plantcare.dto.response.AiResponse;
+import com.qtrong.plantcare.dto.response.ApiResponse;
 import com.qtrong.plantcare.service.AiService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,5 +17,12 @@ public class AiController {
     @GetMapping
     public String testHealth(){
         return aiService.testHealth();
+    }
+
+    @PostMapping("/classify")
+    public ApiResponse<AiResponse> predict(
+            @RequestPart("image") MultipartFile image
+    ){
+        return aiService.predict(image);
     }
 }
