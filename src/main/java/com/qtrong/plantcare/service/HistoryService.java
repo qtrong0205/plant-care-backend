@@ -1,6 +1,6 @@
 package com.qtrong.plantcare.service;
 
-import com.qtrong.plantcare.entity.AiPredictionResult;
+import com.qtrong.plantcare.dto.response.AiPredictionResult;
 import com.qtrong.plantcare.entity.History;
 import com.qtrong.plantcare.entity.Plant;
 import com.qtrong.plantcare.entity.User;

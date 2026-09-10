@@ -1,6 +1,6 @@
 package com.qtrong.plantcare.service;
 
-import com.qtrong.plantcare.dto.response.AiResponse;
+import com.qtrong.plantcare.dto.response.AiPredictionResult;
 import com.qtrong.plantcare.dto.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -21,11 +21,11 @@ public class AiService {
                 .body(new org.springframework.core.ParameterizedTypeReference<String>() {});
     }
 
-    public ApiResponse<AiResponse> predict(MultipartFile image) {
+    public ApiResponse<AiPredictionResult> predict(MultipartFile image) {
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         builder.part("file", image.getResource());
 
-        return ApiResponse.<AiResponse>builder()
+        return ApiResponse.<AiPredictionResult>builder()
                 .code(200)
                 .result(
                         restClient.post()
@@ -33,7 +33,7 @@ public class AiService {
                                 .contentType(MediaType.MULTIPART_FORM_DATA)
                                 .body(builder.build())
                                 .retrieve()
-                                .body(AiResponse.class)
+                                .body(AiPredictionResult.class)
                 )
                 .build();
     }

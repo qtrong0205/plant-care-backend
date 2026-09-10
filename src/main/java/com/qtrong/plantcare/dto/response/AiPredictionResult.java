@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AiResponse {
+public class AiPredictionResult {
 
     @JsonProperty("predicted_label")
     private String predictedLabel;

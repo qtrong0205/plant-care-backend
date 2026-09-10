@@ -1,7 +1,7 @@
 package com.qtrong.plantcare.controller;
 
 
-import com.qtrong.plantcare.dto.response.AiResponse;
+import com.qtrong.plantcare.dto.response.AiPredictionResult;
 import com.qtrong.plantcare.dto.response.ApiResponse;
 import com.qtrong.plantcare.service.AiService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class AiController {
     }
 
     @PostMapping("/classify")
-    public ApiResponse<AiResponse> predict(
+    public ApiResponse<AiPredictionResult> predict(
             @RequestPart("image") MultipartFile image
     ){
         return aiService.predict(image);

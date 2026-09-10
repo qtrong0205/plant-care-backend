@@ -1,6 +1,6 @@
 package com.qtrong.plantcare.dto.request;
 
-import com.qtrong.plantcare.entity.AiPredictionResult;
+import com.qtrong.plantcare.dto.response.AiPredictionResult;
 import lombok.Getter;
 import lombok.Setter;
 
