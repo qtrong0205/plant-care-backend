@@ -24,10 +24,8 @@ public class UserController {
         return userService.register(request);
     }
 
-    @GetMapping
-    public ApiResponse<UserResponse> getUserProfile(
-            @AuthenticationPrincipal Jwt jwt
-            ) {
-        return userService.getUserProfile(jwt);
+    @GetMapping("/me")
+    public ApiResponse<UserResponse> getUserProfile() {
+        return userService.getUserProfile();
     }
 }

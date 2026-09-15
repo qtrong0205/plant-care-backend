@@ -9,10 +9,13 @@ import com.qtrong.plantcare.exception.ErrorCode;
 import com.qtrong.plantcare.mapper.UserMapper;
 import com.qtrong.plantcare.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -38,8 +41,17 @@ public class UserService {
                 .build();
     }
 
-    public ApiResponse<UserResponse> getUserProfile(Jwt jwt) {
-        User user = jwtService.extractUser(jwt);
+    public ApiResponse<UserResponse> getUserProfile() {
+        var authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+
+        if (authentication == null) {
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
+
+        var jwt = (Jwt) authentication.getPrincipal();
+
+        var user = jwtService.extractUser(jwt);
 
         return ApiResponse.<UserResponse>builder()
                 .code(200)
