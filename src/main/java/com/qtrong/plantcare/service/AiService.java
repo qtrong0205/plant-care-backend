@@ -6,6 +6,7 @@ import com.qtrong.plantcare.dto.response.ApiResponse;
 import com.qtrong.plantcare.repository.PlantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -84,7 +85,7 @@ public class AiService {
             );
 
             return ApiResponse.<AiPredictionResult>builder()
-                    .code(200)
+                    .code(HttpStatus.OK)
                     .result(predictionResult)
                     .build();
 

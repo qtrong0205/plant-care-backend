@@ -9,6 +9,7 @@ import com.qtrong.plantcare.exception.ErrorCode;
 import com.qtrong.plantcare.mapper.UserMapper;
 import com.qtrong.plantcare.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,7 +37,7 @@ public class UserService {
         userRepository.save(user);
 
         return ApiResponse.<UserResponse>builder()
-                .code(201)
+                .code(HttpStatus.CREATED)
                 .result(userMapper.toUserResponse(user))
                 .build();
     }
@@ -54,7 +55,7 @@ public class UserService {
         var user = jwtService.extractUser(jwt);
 
         return ApiResponse.<UserResponse>builder()
-                .code(200)
+                .code(HttpStatus.OK)
                 .result(userMapper.toUserResponse(user))
                 .build();
     }

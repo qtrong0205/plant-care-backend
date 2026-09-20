@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
         apiResponse.setMessage(exception.getMessage());
 
         return ResponseEntity
-                .status(500)
+                .status(ErrorCode.UNCATEGORIZED_ERROR.getCode())
                 .body(apiResponse);
     }
 

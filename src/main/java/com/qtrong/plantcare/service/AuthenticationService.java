@@ -11,6 +11,7 @@ import com.qtrong.plantcare.exception.ErrorCode;
 import com.qtrong.plantcare.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,7 @@ public class AuthenticationService {
                 .result(AuthenticationResponse.builder()
                         .token(token)
                         .build())
-                .code(200)
+                .code(HttpStatus.OK)
                 .build();
     }
 

@@ -10,6 +10,7 @@ import com.qtrong.plantcare.exception.ErrorCode;
 import com.qtrong.plantcare.mapper.PlantMapper;
 import com.qtrong.plantcare.repository.PlantRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class PlantService {
         plantRepository.save(plant);
 
         return ApiResponse.<PlantResponse>builder()
-                .code(201)
+                .code(HttpStatus.CREATED)
                 .result(plantMapper.toPlantResponse(plant))
                 .build();
     }
@@ -57,7 +58,7 @@ public class PlantService {
                 );
 
         return ApiResponse.<PlantResponse>builder()
-                .code(200)
+                .code(HttpStatus.OK)
                 .result(plantMapper.toPlantResponse(plant))
                 .build();
     }
@@ -72,7 +73,7 @@ public class PlantService {
                 .toList();
 
         return ApiResponse.<List<PlantResponse>>builder()
-                .code(200)
+                .code(HttpStatus.OK)
                 .result(result)
                 .build();
     }
@@ -89,7 +90,7 @@ public class PlantService {
         plantRepository.save(plant);
 
         return ApiResponse.<Void>builder()
-                .code(200)
+                .code(HttpStatus.OK)
                 .message("Watered successfully")
                 .build();
     }
@@ -105,7 +106,7 @@ public class PlantService {
         plantRepository.delete(plant);
 
         return ApiResponse.<Void>builder()
-                .code(200)
+                .code(HttpStatus.OK)
                 .message("Plant deleted successfully")
                 .build();
     }
@@ -127,7 +128,7 @@ public class PlantService {
         plantRepository.save(plant);
 
         return ApiResponse.<PlantResponse>builder()
-                .code(200)
+                .code(HttpStatus.OK)
                 .result(plantMapper.toPlantResponse(plant))
                 .build();
     }

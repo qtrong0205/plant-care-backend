@@ -3,6 +3,7 @@ package com.qtrong.plantcare.dto.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatusCode;
 
 @Builder
 @Setter
@@ -12,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse <T> {
-    private int code = 1000;
+    private HttpStatusCode code;
     private String message;
     private T result;
 }
