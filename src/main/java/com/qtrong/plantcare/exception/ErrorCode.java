@@ -15,7 +15,8 @@ public enum ErrorCode {
     USER_NOT_EXISTED(HttpStatus.BAD_REQUEST, "User not exist"),
     INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid username or password"),
     PLANT_NOT_EXISTED(HttpStatus.BAD_REQUEST, "Plant not existed"),
-    UNAUTHENTICATED(HttpStatus.UNAUTHORIZED, "Unauthenticated")
+    UNAUTHENTICATED(HttpStatus.UNAUTHORIZED, "Unauthenticated"),
+    HISTORY_NOT_FOUND(HttpStatus.NOT_FOUND, "History not found")
     ;
 
     private HttpStatusCode code;

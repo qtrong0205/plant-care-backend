@@ -58,7 +58,11 @@ public class HistoryService {
     @Transactional
     public ApiResponse<?> deleteHistoryById(String plantId, Jwt jwt){
         String userId = jwtService.extractUserId(jwt);
-        historyRepository.deleteByHistoryIdAndUser_UserId(plantId, userId);
+        int deletedRows = historyRepository.deleteByHistoryIdAndUser_UserId(plantId, userId);
+
+        if(deletedRows == 0){
+            throw new AppException(ErrorCode.HISTORY_NOT_FOUND);
+        }
 
         return ApiResponse.builder()
                 .code(HttpStatus.OK)
