@@ -1,6 +1,7 @@
 package com.qtrong.plantcare.service;
 
 import com.qtrong.plantcare.dto.response.AiPredictionResult;
+import com.qtrong.plantcare.dto.response.ApiResponse;
 import com.qtrong.plantcare.entity.History;
 import com.qtrong.plantcare.entity.Plant;
 import com.qtrong.plantcare.entity.User;
@@ -8,7 +9,9 @@ import com.qtrong.plantcare.exception.AppException;
 import com.qtrong.plantcare.exception.ErrorCode;
 import com.qtrong.plantcare.repository.HistoryRepository;
 import com.qtrong.plantcare.repository.PlantRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
@@ -50,5 +53,16 @@ public class HistoryService {
         history.setPlant(plant);
 
         return historyRepository.save(history);
+    }
+
+    @Transactional
+    public ApiResponse<?> deleteHistoryById(String plantId, Jwt jwt){
+        String userId = jwtService.extractUserId(jwt);
+        historyRepository.deleteByHistoryIdAndUser_UserId(plantId, userId);
+
+        return ApiResponse.builder()
+                .code(HttpStatus.OK)
+                .message("History deleted")
+                .build();
     }
 }
